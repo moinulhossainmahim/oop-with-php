@@ -898,8 +898,5 @@ This repository is for educational purposes. Feel free to use and modify the cod
 
 ---
 
-**Happy Learning! 🚀**
-
 *This repository is maintained for educational purposes. If you find it helpful, consider giving it a star!*
-
 
