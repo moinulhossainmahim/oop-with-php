@@ -86,11 +86,10 @@ Inheritance allows a class to inherit properties and methods from another class,
 - `Model.php` - Demonstrates base Model class with inheritance and protected properties
 - `Notification.php` - Shows method overriding with EmailNotification extending Notification
 
-**Example (Complete Runnable Code from Employee.php):**
+**Example:**
 ```php
 <?php
 
-// Base class - common behavior for all employees
 class Employee {
     protected $name;
     protected $id;
@@ -102,12 +101,10 @@ class Employee {
         $this->salary = $salary;
     }
 
-    // Common method - inherited by all children
     public function takeBreak() {
         return "{$this->name} is taking a break.";
     }
 
-    // Method that can be overridden by children
     public function work() {
         return "{$this->name} is working on general tasks.";
     }
@@ -117,38 +114,35 @@ class Employee {
     }
 }
 
-// Child class - inherits from Employee
 class Developer extends Employee {
     private $language;
 
     public function __construct($name, $id, $salary, $language) {
-        parent::__construct($name, $id, $salary);  // Call parent constructor
+        parent::__construct($name, $id, $salary);
         $this->language = $language;
     }
 
-    // Override parent method
     public function work() {
         return "{$this->name} is writing {$this->language} code.";
     }
 
-    // Developer-specific method
     public function debugCode() {
         return "{$this->name} is debugging code.";
     }
 }
 
-// Usage
 $developer = new Developer('Alice', 'EMP001', 95000, 'PHP');
-echo $developer->takeBreak() . "\n";    // Inherited method
-echo $developer->work() . "\n";         // Overridden method
-echo $developer->debugCode() . "\n";    // Child-specific method
-echo $developer->getInfo() . "\n";      // Parent method
+echo $developer->takeBreak() . "\n";
+echo $developer->work() . "\n";
+echo $developer->debugCode() . "\n";
+echo $developer->getInfo() . "\n";
 
-// Output:
-// Alice is taking a break.
-// Alice is writing PHP code.
-// Alice is debugging code.
-// ID: EMP001 | Name: Alice | Salary: $95000
+/* Output:
+Alice is taking a break.
+Alice is writing PHP code.
+Alice is debugging code.
+ID: EMP001 | Name: Alice | Salary: $95000
+*/
 ```
 
 ### Abstraction
@@ -174,7 +168,7 @@ An abstract class defines a template that other classes must follow. It can incl
 - `Model.php` - Abstract base model with common traits and behaviors
 - `Payment.php` - Payment gateway with template method pattern
 
-**Example (Complete Runnable Code):**
+**Example:**
 ```php
 <?php
 
@@ -202,17 +196,14 @@ class StripeGateway extends PaymentGateway {
     }
 }
 
-// Usage - Abstract class cannot be instantiated directly
-// $gateway = new PaymentGateway(); // ❌ This will cause an error
-
-// ✅ We must use a concrete implementation
 $gateway = new StripeGateway();
 $gateway->process();
 
-// Output:
-// Connecting to gateway...
-// Processing Stripe payment...
-// Disconnecting...
+/* Output:
+Connecting to gateway...
+Processing Stripe payment...
+Disconnecting...
+*/
 ```
 
 ### Interfaces
@@ -234,7 +225,7 @@ Interfaces define contracts that classes must follow. They specify what methods 
 - `Template.php` - Template interface demonstrating required method implementation
 - `WithAbstractExample.php` - Interface implementation using abstract classes
 
-**Example (Complete Runnable Code):**
+**Example:**
 ```php
 <?php
 
@@ -253,7 +244,6 @@ class StripePayment implements MainPaymentGateway {
     }
 }
 
-// Multiple classes can implement the same interface
 class PayPalPayment implements MainPaymentGateway {
     public function charge(float $amount) {
         echo "Charging \${$amount} via PayPal\n";
@@ -264,23 +254,20 @@ class PayPalPayment implements MainPaymentGateway {
     }
 }
 
-// Usage
 $stripe = new StripePayment();
 $stripe->charge(100.50);
 $stripe->refund("TXN123");
-
-echo "\n";
 
 $paypal = new PayPalPayment();
 $paypal->charge(200.00);
 $paypal->refund("TXN456");
 
-// Output:
-// Charging $100.5 via Stripe
-// Refunding TXN123 via Stripe
-// 
-// Charging $200 via PayPal
-// Refunding TXN456 via PayPal
+/* Output:
+Charging $100.5 via Stripe
+Refunding TXN123 via Stripe
+Charging $200 via PayPal
+Refunding TXN456 via PayPal
+*/
 ```
 
 ### Traits
@@ -312,18 +299,16 @@ Some people refer to traits as **"like an automatic CTRL+C/CTRL+V for your class
 - `logger.php` - Logging functionality trait
 - `trait-vs-interface.php` - Comparison between traits and interfaces
 
-**Example (Complete Runnable Code):**
+**Example:**
 ```php
 <?php
 
-// Trait definition
 trait LoggerTrait {
     public function log(string $message) {
         echo "[" . date('Y-m-d H:i:s') . "] $message\n";
     }
 }
 
-// Multiple classes can use the same trait
 class User {
     use LoggerTrait;
 
@@ -340,16 +325,16 @@ class Product {
     }
 }
 
-// Usage
 $user = new User();
 $user->register();
 
 $product = new Product();
 $product->add();
 
-// Output:
-// [2024-01-15 10:30:45] User registered successfully!
-// [2024-01-15 10:30:45] Product added successfully!
+/* Output:
+[2024-01-15 10:30:45] User registered successfully!
+[2024-01-15 10:30:45] Product added successfully!
+*/
 ```
 
 ### Composition
@@ -370,17 +355,15 @@ Composition is an OOP design principle where objects are built by combining othe
 **Files:**
 - `Subscription.php` - Demonstrates composition with BillingPortal dependency
 
-**Example (Complete Runnable Code):**
+**Example:**
 ```php
 <?php
 
-// Interface defining the contract
 interface BillingPortal {
     public function getCustomer();
     public function getSubscription();
 }
 
-// Implementation of the interface
 class StripeBillingPortal implements BillingPortal {
     public function getCustomer() {
         echo "Fetching customer from Stripe...\n";
@@ -393,7 +376,6 @@ class StripeBillingPortal implements BillingPortal {
     }
 }
 
-// Class using composition - it HAS a BillingPortal
 class Subscription {
     protected BillingPortal $billingPortal;
 
@@ -408,17 +390,14 @@ class Subscription {
     }
 }
 
-// Usage - Dependency Injection (composition in action)
 $subscription = new Subscription(new StripeBillingPortal());
 $subscription->create();
 
-// Output:
-// Fetching customer from Stripe...
-// Fetching subscription from Stripe...
-// Subscription created!
-
-// Composition = "a class has another class" (Subscription HAS a BillingPortal)
-// Inheritance = "a class is a kind of another class" (Car IS A Vehicle)
+/* Output:
+Fetching customer from Stripe...
+Fetching subscription from Stripe...
+Subscription created!
+*/
 ```
 
 ### Static Methods & Properties
@@ -452,17 +431,17 @@ A static method belongs to the class itself, not to any specific object (instanc
 - `validation.php` - Static utility methods for validation
 - `late-static-binding.php` - Demonstrates late static binding concept
 
-**Example (Complete Runnable Code):**
+**Example:**
 ```php
 <?php
 
 class Student {
     public $name;
     public $id;
-    public static $count = 0;  // Static property - shared across all instances
+    public static $count = 0;
 
     public function __construct($name) {
-        self::$count++;  // Increment static counter
+        self::$count++;
         $this->id = self::$count;
         $this->name = $name;
     }
@@ -472,27 +451,25 @@ class Student {
     }
 }
 
-// Create multiple instances
 $stu1 = new Student("Alice");
 $stu2 = new Student("Bob");
 $stu3 = new Student("Charlie");
 
-// Show each student
 $stu1->show();
 $stu2->show();
 $stu3->show();
 
-// Access static property without instantiation
 echo "Total students: " . Student::$count . "\n";
 
-// Output:
-// ID: 1, Name: Alice
-// ID: 2, Name: Bob
-// ID: 3, Name: Charlie
-// Total students: 3
+/* Output:
+ID: 1, Name: Alice
+ID: 2, Name: Bob
+ID: 3, Name: Charlie
+Total students: 3
+*/
 ```
 
-**Late Static Binding Example (Complete Runnable Code):**
+**Late Static Binding Example:**
 ```php
 <?php
 
@@ -502,8 +479,8 @@ class A {
     }
 
     public static function test() {
-        self::who();   // Always outputs "A" (compile-time resolution)
-        static::who(); // Late static binding - outputs calling class (runtime resolution)
+        self::who();
+        static::who();
     }
 }
 
@@ -513,19 +490,14 @@ class B extends A {
     }
 }
 
-// Test the difference
-echo "Calling B::test():\n";
 B::test();
-
-echo "\n\nCalling A::test():\n";
+echo "\n";
 A::test();
 
-// Output:
-// Calling B::test():
-// AB (self:: = A, static:: = B)
-//
-// Calling A::test():
-// AA (both resolve to A)
+/* Output:
+AB
+AA
+*/
 ```
 
 ## 🔐 Access Modifiers
@@ -542,20 +514,20 @@ It defines the external API of your class — the methods and properties other p
 <?php
 
 class User {
-    public $name;  // Accessible from anywhere
+    public $name;
     
     public function getName() {
-        return $this->name;  // Can be called from outside
+        return $this->name;
     }
 }
 
-// Usage
 $user = new User();
-$user->name = "John";        // ✓ Allowed - direct property access
-echo $user->getName();       // ✓ Allowed - method call
+$user->name = "John";
+echo $user->getName();
 
-// Output:
-// John
+/* Output:
+John
+*/
 ```
 
 ### Protected
@@ -568,7 +540,7 @@ It's common in frameworks for base classes that define reusable patterns, where 
 <?php
 
 class Vehicle {
-    protected $speed;  // Hidden from outside, but accessible in child classes
+    protected $speed;
     
     protected function accelerate() {
         echo "Accelerating...\n";
@@ -577,21 +549,19 @@ class Vehicle {
 
 class Car extends Vehicle {
     public function drive() {
-        $this->speed = 60;      // ✓ Can access protected property
-        $this->accelerate();    // ✓ Can call protected method
+        $this->speed = 60;
+        $this->accelerate();
         echo "Driving at {$this->speed} km/h\n";
     }
 }
 
-// Usage
 $car = new Car();
-$car->drive();                  // ✓ Allowed - calls public method
+$car->drive();
 
-// $car->speed = 100;           // ✗ Fatal Error: Cannot access protected property
-
-// Output:
-// Accelerating...
-// Driving at 60 km/h
+/* Output:
+Accelerating...
+Driving at 60 km/h
+*/
 ```
 
 ### Private
@@ -604,15 +574,14 @@ It's for internal implementation details that must never be overridden or expose
 <?php
 
 class BankAccount {
-    private $balance = 0;  // Completely hidden, even from child classes
+    private $balance = 0;
     
     private function validateAmount($amount) {
-        // Internal validation logic
         return $amount > 0;
     }
     
     public function deposit($amount) {
-        if ($this->validateAmount($amount)) {  // Only accessible within this class
+        if ($this->validateAmount($amount)) {
             $this->balance += $amount;
             echo "Deposited \${$amount}. New balance: \${$this->balance}\n";
         } else {
@@ -621,29 +590,18 @@ class BankAccount {
     }
     
     public function getBalance() {
-        return $this->balance;  // Public method to access private property
+        return $this->balance;
     }
 }
 
-class SavingsAccount extends BankAccount {
-    // Child class cannot access $balance directly
-    // public function showBalance() {
-    //     return $this->balance;  // ✗ Fatal Error: Cannot access private property
-    // }
-}
-
-// Usage
 $account = new BankAccount();
-$account->deposit(1000);        // ✓ Allowed - uses public method
+$account->deposit(1000);
+echo "Balance: \${$account->getBalance()}\n";
 
-// $account->balance = 5000;    // ✗ Fatal Error: Cannot access private property
-// $account->validateAmount(100); // ✗ Fatal Error: Cannot access private method
-
-echo "Balance: \${$account->getBalance()}\n";  // ✓ Allowed - public method
-
-// Output:
-// Deposited $1000. New balance: $1000
-// Balance: $1000
+/* Output:
+Deposited $1000. New balance: $1000
+Balance: $1000
+*/
 ```
 
 ### Summary Table
@@ -680,11 +638,11 @@ class User {
     }
 }
 
-// Usage - Constructor is automatically called
 $user = new User("John");
 
-// Output:
-// User John created
+/* Output:
+User John created
+*/
 ```
 
 ### `__destruct()`
@@ -708,20 +666,16 @@ class DatabaseConnection {
     
     public function __destruct() {
         echo "Closing database connection...\n";
-        // Cleanup code here - close connections, free resources
     }
 }
 
-// Usage
 $db = new DatabaseConnection();
-// ... use database connection ...
-unset($db);  // Destructor is called when object is destroyed
+unset($db);
 
-// Or at end of script, destructor is automatically called
-
-// Output:
-// Database connection opened
-// Closing database connection...
+/* Output:
+Database connection opened
+Closing database connection...
+*/
 ```
 
 ### `__invoke()`
@@ -741,14 +695,13 @@ class SingleActionController {
     }
 }
 
-// Usage - Object becomes callable like a function
 $controller = new SingleActionController();
-$result = $controller("GET /users");  // Calls __invoke() automatically
-
+$result = $controller("GET /users");
 echo $result . "\n";
 
-// Output:
-// Handled request: GET /users
+/* Output:
+Handled request: GET /users
+*/
 ```
 
 ### Other Magic Methods
@@ -778,19 +731,29 @@ Laravel relies heavily on namespaces to map its directory structure to PHP class
 ### Basic Namespace Usage
 
 ```php
+<?php
+
 namespace App\Http\Controllers;
 
 class UserController {
-    // ...
+    public function index() {
+        return "User list";
+    }
 }
 
-// Using the class
 $controller = new \App\Http\Controllers\UserController();
+echo $controller->index();
+
+/* Output:
+User list
+*/
 ```
 
 ### Using Statements
 
 ```php
+<?php
+
 namespace App\Services;
 
 use App\Http\Controllers\UserController;
@@ -798,7 +761,7 @@ use App\Models\User as UserModel;
 
 class UserService {
     public function __construct(UserController $controller) {
-        // ...
+        $this->controller = $controller;
     }
 }
 ```
@@ -817,7 +780,7 @@ In `composer.json`, you can define PSR-4 autoloading:
 }
 ```
 
-**What this means:** When Composer sees `App\Something`, it will look for that class inside the `app/` folder. This tells Composer: "When I see `App\Something`, look for that class inside the `app/` folder."
+**What this means:** When Composer sees `App\Something`, it will look for that class inside the `app/` folder.
 
 ### Directory Structure Mapping
 
@@ -938,4 +901,5 @@ This repository is for educational purposes. Feel free to use and modify the cod
 **Happy Learning! 🚀**
 
 *This repository is maintained for educational purposes. If you find it helpful, consider giving it a star!*
+
 
