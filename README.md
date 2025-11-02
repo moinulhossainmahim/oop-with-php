@@ -79,23 +79,36 @@ Inheritance allows a class to inherit properties and methods from another class,
 - Organized class hierarchy
 
 **Files:**
+- `Employee.php` - **Recommended for beginners** - Real-world Employee/Developer/Manager hierarchy demonstrating inheritance clearly
 - `Model.php` - Demonstrates base Model class with inheritance and protected properties
 - `Notification.php` - Shows method overriding with EmailNotification extending Notification
 
-**Example:**
+**Example (from Employee.php):**
 ```php
-class Model {
-    protected $table;
-    protected $fillable = [];
-    
-    public function save() {
-        echo "Saving to table: {$this->table}\n";
+// Base class - common behavior for all employees
+class Employee {
+    protected $name;
+    protected $id;
+    protected $salary;
+
+    public function work() {
+        return "{$this->name} is working on general tasks.";
     }
 }
 
-class User extends Model {
-    protected $table = 'users';
-    protected $fillable = ['name'];
+// Child class - inherits from Employee
+class Developer extends Employee {
+    private $language;
+
+    // Override parent method
+    public function work() {
+        return "{$this->name} is writing {$this->language} code.";
+    }
+    
+    // Developer-specific method
+    public function debugCode() {
+        return "{$this->name} is debugging code.";
+    }
 }
 ```
 
