@@ -48,7 +48,7 @@ cd oop
 
 2. Navigate to any concept folder:
 ```bash
-cd concepts/inheritance
+cd src/inheritance
 ```
 
 3. Run PHP files directly:
@@ -71,7 +71,7 @@ This repository covers the following core OOP concepts:
 
 ### Inheritance
 
-**Location:** `concepts/inheritance/`
+**Location:** `src/inheritance/`
 
 Inheritance allows a class to inherit properties and methods from another class, promoting code reusability and establishing an "is-a" relationship.
 
@@ -153,7 +153,7 @@ echo $developer->getInfo() . "\n";      // Parent method
 
 ### Abstraction
 
-**Location:** `concepts/abstract/`
+**Location:** `src/abstract/`
 
 An abstract class is a blueprint for other classes. It cannot be instantiated directly — only extended.
 
@@ -217,7 +217,7 @@ $gateway->process();
 
 ### Interfaces
 
-**Location:** `concepts/interface/`
+**Location:** `src/interface/`
 
 Interfaces define contracts that classes must follow. They specify what methods a class must implement without providing the implementation itself.
 
@@ -285,7 +285,7 @@ $paypal->refund("TXN456");
 
 ### Traits
 
-**Location:** `concepts/traits/`
+**Location:** `src/traits/`
 
 A Trait is a mechanism for code reuse in single inheritance languages like PHP. It allows you to inject reusable methods into multiple unrelated classes without using inheritance.
 
@@ -354,7 +354,7 @@ $product->add();
 
 ### Composition
 
-**Location:** `concepts/composition/`
+**Location:** `src/composition/`
 
 Composition is an OOP design principle where objects are built by combining other objects, instead of relying on inheritance.
 
@@ -423,7 +423,7 @@ $subscription->create();
 
 ### Static Methods & Properties
 
-**Location:** `concepts/static-methods/`
+**Location:** `src/static-methods/`
 
 A static method belongs to the class itself, not to any specific object (instance). You call it using the class name — not `$object->method()`, but `ClassName::method()`.
 
@@ -846,7 +846,7 @@ app/
 Each concept folder contains working PHP examples that you can run and modify:
 
 ```
-concepts/
+src/
 ├── abstract/          # Abstract classes and methods
 ├── composition/       # Composition patterns
 ├── inheritance/       # Class inheritance examples
@@ -860,13 +860,13 @@ concepts/
 Navigate to any concept folder and run the PHP files:
 
 ```bash
-cd concepts/inheritance
+cd src/inheritance
 php Model.php
 
-cd concepts/interface
+cd src/interface
 php Payment.php
 
-cd concepts/traits
+cd src/traits
 php ApiResponse.php
 ```
 
